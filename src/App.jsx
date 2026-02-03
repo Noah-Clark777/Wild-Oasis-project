@@ -4,6 +4,7 @@ import { StyleSheetManager } from "styled-components";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Toaster } from "react-hot-toast";
 
 import GlobalStyles from "./styles/GlobalStyles";
 import Dashboadrd from "./pages/Dashboard";
@@ -15,7 +16,10 @@ import Account from "./pages/Account";
 import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import AppLayout from "./ui/AppLayout";
-import { Toaster } from "react-hot-toast";
+
+import Booking from "./pages/booking";
+import Checkin from "./pages/Checkin";
+import ProtectedRoute from "./ui/ProtectedRoute";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -37,10 +41,18 @@ function App() {
           future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
         >
           <Routes>
-            <Route element={<AppLayout />}>
+            <Route
+              element={
+                <ProtectedRoute>
+                  <AppLayout />
+                </ProtectedRoute>
+              }
+            >
               <Route index element={<Navigate replace to="dashboard" />} />
               <Route path="dashboard" element={<Dashboadrd></Dashboadrd>} />
               <Route path="Bookings" element={<Bookings></Bookings>} />
+              <Route path="Bookings/ bookingId" element={<Booking></Booking>} />
+              <Route path="checkin/ bookingId" element={<Checkin></Checkin>} />
               <Route path="Cabins" element={<Cabins></Cabins>} />
               <Route path="Users" element={<Users></Users>} />
               <Route path="Settings" element={<Settings></Settings>} />
