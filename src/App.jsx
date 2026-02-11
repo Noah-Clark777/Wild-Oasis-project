@@ -20,6 +20,7 @@ import AppLayout from "./ui/AppLayout";
 import Booking from "./pages/booking";
 import Checkin from "./pages/Checkin";
 import ProtectedRoute from "./ui/ProtectedRoute";
+import { DarkModeProvider } from "./context/DarkModeContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -32,59 +33,67 @@ const queryClient = new QueryClient({
 
 function App() {
   return (
-    <StyleSheetManager shouldForwardProp={isPropValid}>
-      <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} />
+    <DarkModeProvider>
+      <StyleSheetManager shouldForwardProp={isPropValid}>
+        <QueryClientProvider client={queryClient}>
+          <ReactQueryDevtools initialIsOpen={false} />
 
-        <GlobalStyles />
-        <BrowserRouter
-          future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
-        >
-          <Routes>
-            <Route
-              element={
-                <ProtectedRoute>
-                  <AppLayout />
-                </ProtectedRoute>
-              }
-            >
-              <Route index element={<Navigate replace to="dashboard" />} />
-              <Route path="dashboard" element={<Dashboadrd></Dashboadrd>} />
-              <Route path="Bookings" element={<Bookings></Bookings>} />
-              <Route path="Bookings/ bookingId" element={<Booking></Booking>} />
-              <Route path="checkin/ bookingId" element={<Checkin></Checkin>} />
-              <Route path="Cabins" element={<Cabins></Cabins>} />
-              <Route path="Users" element={<Users></Users>} />
-              <Route path="Settings" element={<Settings></Settings>} />
-              <Route path="Account" element={<Account></Account>} />
-            </Route>
+          <GlobalStyles />
+          <BrowserRouter
+            future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+          >
+            <Routes>
+              <Route
+                element={
+                  <ProtectedRoute>
+                    <AppLayout />
+                  </ProtectedRoute>
+                }
+              >
+                <Route index element={<Navigate replace to="dashboard" />} />
+                <Route path="dashboard" element={<Dashboadrd></Dashboadrd>} />
+                <Route path="Bookings" element={<Bookings></Bookings>} />
+                <Route
+                  path="Bookings/ bookingId"
+                  element={<Booking></Booking>}
+                />
+                <Route
+                  path="checkin/ bookingId"
+                  element={<Checkin></Checkin>}
+                />
+                <Route path="Cabins" element={<Cabins></Cabins>} />
+                <Route path="Users" element={<Users></Users>} />
+                <Route path="Settings" element={<Settings></Settings>} />
+                <Route path="Account" element={<Account></Account>} />
+              </Route>
 
-            <Route path="Login" element={<Login></Login>} />
-            <Route path="*" element={<PageNotFound></PageNotFound>} />
-          </Routes>
-        </BrowserRouter>
-        <Toaster
-          position="top-center"
-          gutter={12}
-          containerStyle={{ margin: "8px" }}
-          toastOptions={{
-            success: {
-              duration: 3000,
-            },
-            error: {
-              duration: 5000,
-            },
-            style: {
-              fontSize: "16px",
-              maxWidth: "500px",
-              padding: "16px, 24px",
-              background: "var(--color-grey-0)",
-              color: "var(--color-grey-700)",
-            },
-          }}
-        />
-      </QueryClientProvider>
-    </StyleSheetManager>
+              <Route path="Login" element={<Login></Login>} />
+              <Route path="*" element={<PageNotFound></PageNotFound>} />
+            </Routes>
+          </BrowserRouter>
+          <Toaster
+            position="top-center"
+            gutter={12}
+            containerStyle={{ margin: "8px" }}
+            toastOptions={{
+              success: {
+                duration: 3000,
+              },
+              error: {
+                duration: 5000,
+              },
+              style: {
+                fontSize: "16px",
+                maxWidth: "500px",
+                padding: "16px, 24px",
+                background: "var(--color-grey-0)",
+                color: "var(--color-grey-700)",
+              },
+            }}
+          />
+        </QueryClientProvider>
+      </StyleSheetManager>
+    </DarkModeProvider>
   );
 }
 
