@@ -17,7 +17,7 @@ import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import AppLayout from "./ui/AppLayout";
 
-import Booking from "./pages/booking";
+import Booking from "./pages/Booking";
 import Checkin from "./pages/Checkin";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import { DarkModeProvider } from "./context/DarkModeContext";
@@ -52,16 +52,10 @@ function App() {
               >
                 <Route index element={<Navigate replace to="dashboard" />} />
                 <Route path="dashboard" element={<Dashboadrd></Dashboadrd>} />
-                <Route path="Bookings" element={<Bookings></Bookings>} />
-                <Route
-                  path="Bookings/ bookingId"
-                  element={<Booking></Booking>}
-                />
-                <Route
-                  path="checkin/ bookingId"
-                  element={<Checkin></Checkin>}
-                />
-                <Route path="Cabins" element={<Cabins></Cabins>} />
+                <Route path="bookings" element={<Bookings />} />
+                <Route path="bookings/:bookingId" element={<Booking />} />
+                <Route path="checkin/:bookingId" element={<Checkin />} />
+                <Route path="cabins" element={<Cabins />} />
                 <Route path="Users" element={<Users></Users>} />
                 <Route path="Settings" element={<Settings></Settings>} />
                 <Route path="Account" element={<Account></Account>} />
